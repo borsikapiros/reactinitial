@@ -5,11 +5,9 @@ export default function ListItemDetails(props) {
     return (
         <div>
             <p>
-                {props.hotel.city}, {props.hotel.stars} stars
+                {props.hotel.city} ({props.hotel.stars})
             </p>
             <SubscriptionForm hotel={props.hotel} />
         </div>
     );
-
-
 }

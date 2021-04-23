@@ -8,6 +8,8 @@ export default function SubscriptionForm(props) {
 
     const hotelName = props.hotel.name;
 
+    const subscribedEmails = [];
+
     function sendSubscribe(e) {
         e.preventDefault();
 
@@ -22,20 +24,24 @@ export default function SubscriptionForm(props) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.success) {
+                if (data.success && !subscribedEmails.includes(email)) {
                     setMessage(successMsg);
+                } else if (subscribedEmails.includes(email)) {
+                    setMessage("Already subscribed");
                 } else {
-                    setMessage("hiba");
+                    setMessage("An error occurred");
                 }
-            })
-            
+            });
+        subscribedEmails.push(email);
     }
 
-    const feedBack = <Feedback message={message} email={email} hotelName={hotelName} />;
+    const feedBack = (
+        <Feedback message={message} email={email} hotelName={hotelName} />
+    );
 
     const form = (
         <div>
-            <h6>Would you like know more? Subscribe!</h6>
+            <h6>Request more info about {hotelName}</h6>
             <form onSubmit={(e) => sendSubscribe(e)}>
                 <input
                     type="email"
@@ -52,5 +58,4 @@ export default function SubscriptionForm(props) {
     );
 
     return message ? feedBack : form;
-
 }
