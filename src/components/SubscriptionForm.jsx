@@ -27,9 +27,9 @@ export default function SubscriptionForm(props) {
                 if (data.success && !subscribedEmails.includes(email)) {
                     setMessage(successMsg);
                 } else if (subscribedEmails.includes(email)) {
-                    setMessage("Already subscribed");
+                    setMessage("already");
                 } else {
-                    setMessage("An error occurred");
+                    setMessage("hiba");
                 }
             });
         subscribedEmails.push(email);
